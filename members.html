@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Members | BINI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #111111;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 120px;
+            right: -35px;
+            width: 190px;
+            height: 190px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 23px,
+                    #fff0f7 24px 48px,
+                    transparent 49px
+                );
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 40px;
+            left: -55px;
+            width: 180px;
+            height: 180px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 22px,
+                    #fff0f7 23px 47px,
+                    transparent 48px
+                );
+            opacity: 0.75;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            width: 100%;
+            border-bottom: 1px solid #e5e5e5;
+            background: rgba(255, 255, 255, 0.97);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: auto;
+            min-height: 108px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 42px;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            color: #FF69B4;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #111111;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            position: relative;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: #FF69B4;
+            transition: width 0.25s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: #FF69B4;
+            font-weight: 600;
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 42px 100px;
+        }
+
+        .page-intro {
+            padding: 76px 0 60px;
+            position: relative;
+        }
+
+        .section-number {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #FF69B4;
+            margin-bottom: 34px;
+        }
+
+        .page-intro h1 {
+            font-size: clamp(48px, 6vw, 78px);
+            line-height: 0.95;
+            font-weight: 700;
+            letter-spacing: -3px;
+            max-width: 700px;
+            margin-bottom: 28px;
+        }
+
+        .page-intro p {
+            max-width: 650px;
+            color: #555555;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .members-section {
+            margin-bottom: 80px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 20px;
+            margin-bottom: 0;
+        }
+
+        .section-heading h2 {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .section-heading span {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-left: 1px solid #dddddd;
+            margin-bottom: 80px;
+        }
+
+        .member-card {
+            border-right: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+            background: #ffffff;
+            overflow: hidden;
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF69B4;
+        }
+
+        .member-image {
+            width: 100%;
+            height: 330px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .member-card:hover .member-image img {
+            transform: scale(1.05);
+        }
+
+        .member-info {
+            padding: 30px;
+        }
+
+        .member-number {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .member-role {
+            color: #FF69B4;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .member-info h2 {
+            font-size: 25px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .member-info p.description {
+            color: #555555;
+            font-size: 15px;
+            line-height: 1.65;
+            margin-bottom: 0;
+        }
+
+        footer {
+            border-top: 1px solid #e5e5e5;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: auto;
+            padding: 76px 42px 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h2 {
+            color: #FF69B4;
+            font-size: 30px;
+            margin-bottom: 18px;
+        }
+
+        .footer-brand p {
+            color: #666666;
+            font-size: 16px;
+            max-width: 500px;
+        }
+
+        .footer-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 50px;
+            justify-self: end;
+            width: 310px;
+        }
+
+        .footer-nav a {
+            text-decoration: none;
+            color: #111111;
+            font-size: 16px;
+        }
+
+        .footer-nav a:hover {
+            color: #FF69B4;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: auto;
+            padding: 28px 42px 34px;
+            border-top: 1px solid #dddddd;
+            color: #777777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1000px) {
+
+            .header-inner {
+                min-height: 90px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                padding: 25px;
+            }
+
+            nav {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 5px;
+                gap: 24px;
+            }
+
+            main {
+                padding: 0 25px 70px;
+            }
+
+            .members-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                padding: 60px 25px 30px;
+            }
+
+            .footer-bottom {
+                padding: 25px;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .logo {
+                font-size: 26px;
+            }
+
+            nav {
+                gap: 20px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .page-intro {
+                padding: 55px 0 45px;
+            }
+
+            .page-intro h1 {
+                font-size: 48px;
+                letter-spacing: -2px;
+            }
+
+            .page-intro p {
+                font-size: 16px;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .member-image {
+                height: 360px;
+            }
+
+            .member-info {
+                padding: 30px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-nav {
+                justify-self: start;
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                BINI
+            </a>
+
+            <nav>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html" class="active">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="page-intro">
+
+            <div class="section-number">
+                02 — MEMBERS
+            </div>
+
+            <h1>
+                Meet the<br>
+                girls.
+            </h1>
+
+            <p>
+                Get to know the eight members of BINI,
+                their roles, talents, and the personalities
+                that make the group shine together.
+            </p>
+
+        </section>
+
+        <section class="members-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    BINI Members
+                </h2>
+
+                <span>
+                    08 MEMBERS
+                </span>
+
+            </div>
+
+            <div class="members-grid">
+
+                <article class="member-card">
+
+                    <div class="member-image">
+
+                        <img
+                            src="images/members/jho.jpeg"
+                            alt="Jhoanna">
+
+                    </div>
+
+                    <div class="member-info">
+
+                        <div class="member-number">
+                            01
+                        </div>
+
+                        <div class="member-role">
+                            LEADER · LEAD VOCALIST
+                        </div>
+
+                        <h2>
+                            Jhoanna
+                        </h2>
+
+                        <p class="description">
+                            BINI's leader and a talented vocalist,
+                            Jhoanna helps guide the group while
+                            bringing warmth and confidence to the stage.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <article class="member-card">
+
+                    <div class="member-image">
+
+                        <img
+                            src="images/members/aiahkins.jpeg"
+                            alt="Aiah">
+
+                    </div>
+
+                    <div class="member-info">
+
+                        <div class="member-number">
+                            02
+                        </div>
+
+                        <div class="member-role">
+                            ELDEST · VISUAL · MAIN RAPPER
+                        </div>
+
+                        <h2>
+                            Aiah
+                        </h2>
+
+                        <p class="description">
+                            The eldest member of BINI,
+                            known for her visual presence,
+                            rap skills, and charming personality.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <article class="member-card">
+
+                    <div class="member-image">
+
+                        <img
+                            src="images/members/colet.jpeg"
+                            alt="Colet">
+
+                    </div>
+
+                    <div class="member-info">
+
+                        <div class="member-number">
+                            03
+                        </div>
+
+                        <div class="member-role">
+                            MAIN VOCALIST · LEAD DANCER
+                        </div>
+
+                        <h2>
+                            Colet
+                        </h2>
+
+                        <p class="description">
+                            Known for her powerful vocals
+                            and energetic stage presence,
+                            Colet brings strength to every performance.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <article class="member-card">
+
+                    <div class="member-image">
+
+                        <img
+                            src="images/members/maloi.jpeg"
+                            alt="Maloi">
+
+                    </div>
+
+                    <div class="member-info">
+
+                        <div class="member-number">
+                            04
+                        </div>
+
+                        <div class="member-role">
+                            MAIN VOCALIST
+                        </div>
+
+                        <h2>
+                            Maloi
+                        </h2>
+
+                        <p class="description">
+                            A standout vocalist whose
+                            expressive voice and personality
+                            have made her a favorite among BLOOMS.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <article class="member-card">
+
+                    <div class="member-image">
+
+                        <img
+                            src="images/members/gwen.jpg"
+                            alt="Gwen">
+
+                    </div>
+
+                    <div class="member-info">
+
+                        <div class="member-number">
+                            05
+                        </div>
+
+                        <div class="member-role">
+                            LEAD VOCALIST · LEAD RAPPER
+                        </div>
+
+                        <h2>
+                            Gwen
+                        </h2>
+
+                        <p class="description">
+                            Gwen combines her smooth vocals
+                            and confident rap delivery with
+                            a distinctive stage presence.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <article class="member-card">
+
+                    <div class="member-image">
+
+                        <img
+                            src="images/members/staku.jpeg"
+                            alt="Stacey">
+
+                    </div>
+
+                    <div class="member-info">
+
+                        <div class="member-number">
+                            06
+                        </div>
+
+                        <div class="member-role">
+                            MAIN RAPPER · LEAD DANCER
+                        </div>
+
+                        <h2>
+                            Stacey
+                        </h2>
+
+                        <p class="description">
+                            Stacey brings energetic rap,
+                            dance skills, and a bright personality
+                            to BINI's performances.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <article class="member-card">
+
+                    <div class="member-image">
+
+                        <img
+                            src="images/members/mikhalim.jpeg"
+                            alt="Mikha">
+
+                    </div>
+
+                    <div class="member-info">
+
+                        <div class="member-number">
+                            07
+                        </div>
+
+                        <div class="member-role">
+                            VISUAL · MAIN RAPPER
+                        </div>
+
+                        <h2>
+                            Mikha
+                        </h2>
+
+                        <p class="description">
+                            Known for her charismatic presence,
+                            Mikha combines rap, dance, and visuals
+                            that make her stand out on stage.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <article class="member-card">
+
+                    <div class="member-image">
+
+                        <img
+                            src="images/members/shee.jpeg"
+                            alt="Sheena">
+
+                    </div>
+
+                    <div class="member-info">
+
+                        <div class="member-number">
+                            08
+                        </div>
+
+                        <div class="member-role">
+                            YOUNGEST · MAIN DANCER
+                        </div>
+
+                        <h2>
+                            Sheena
+                        </h2>
+
+                        <p class="description">
+                            The youngest member of BINI,
+                            Sheena is recognized for her dancing,
+                            energy, and expressive performances.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <h2>
+                    BINI
+                </h2>
+
+                <p>
+                    A website dedicated to BINI and the BLOOMS community.
+                </p>
+
+            </div>
+
+            <div class="footer-nav">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            © JOANA MARIE GUIBAO 2026
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

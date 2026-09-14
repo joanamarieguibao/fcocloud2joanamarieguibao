@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Endorsements | BINI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #111111;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 120px;
+            right: -35px;
+            width: 190px;
+            height: 190px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 23px,
+                    #fff0f7 24px 48px,
+                    transparent 49px
+                );
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 40px;
+            left: -55px;
+            width: 180px;
+            height: 180px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 22px,
+                    #fff0f7 23px 47px,
+                    transparent 48px
+                );
+            opacity: 0.75;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            width: 100%;
+            border-bottom: 1px solid #e5e5e5;
+            background: rgba(255, 255, 255, 0.97);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: auto;
+            height: 108px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 42px;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            color: #FF69B4;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #111111;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            position: relative;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: #FF69B4;
+            transition: width 0.25s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: #FF69B4;
+            font-weight: 600;
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+		
+        main {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 42px 100px;
+        }
+
+        .page-intro {
+            padding: 76px 0 60px;
+            position: relative;
+        }
+
+        .section-number {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #FF69B4;
+            margin-bottom: 34px;
+        }
+
+        .page-intro h1 {
+            font-size: clamp(48px, 6vw, 78px);
+            line-height: 0.95;
+            font-weight: 700;
+            letter-spacing: -3px;
+            max-width: 700px;
+            margin-bottom: 28px;
+        }
+
+        .page-intro p {
+            max-width: 650px;
+            color: #555555;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .featured {
+            border: 1px solid #dddddd;
+            margin-bottom: 70px;
+            background: #ffffff;
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+        }
+
+        .featured-image {
+            min-height: 430px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .featured-placeholder {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        .featured-content {
+            padding: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .label {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .featured-content h2 {
+            font-size: 38px;
+            line-height: 1.1;
+            margin-bottom: 22px;
+        }
+
+        .featured-content p {
+            color: #555555;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .featured-link {
+            color: #FF69B4;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .featured-link:hover {
+            text-decoration: underline;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 20px;
+            margin-bottom: 0;
+        }
+
+        .section-heading h2 {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .section-heading span {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .endorsement-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-left: 1px solid #dddddd;
+            margin-bottom: 80px;
+        }
+
+        .endorsement-card {
+            border-right: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+            background: #ffffff;
+        }
+
+        .endorsement-image {
+            height: 270px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .endorsement-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-placeholder {
+            color: #FF69B4;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .endorsement-info {
+            padding: 30px;
+        }
+
+        .endorsement-number {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .endorsement-info h3 {
+            font-size: 25px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .endorsement-info p {
+            color: #555555;
+            font-size: 15px;
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+
+        .endorsement-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #111111;
+            border-bottom: 1px solid #FF69B4;
+            padding-bottom: 3px;
+        }
+
+        .timeline-section {
+            margin-top: 30px;
+        }
+
+        .timeline {
+            border-left: 1px solid #dddddd;
+            margin-top: 20px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            border-bottom: 1px solid #dddddd;
+            min-height: 130px;
+        }
+
+        .timeline-date {
+            padding: 30px;
+            border-right: 1px solid #dddddd;
+            color: #FF69B4;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .timeline-content {
+            padding: 30px;
+        }
+
+        .timeline-content h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: #666666;
+            max-width: 750px;
+            font-size: 15px;
+        }
+
+        footer {
+            border-top: 1px solid #e5e5e5;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: auto;
+            padding: 76px 42px 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h2 {
+            color: #FF69B4;
+            font-size: 30px;
+            margin-bottom: 18px;
+        }
+
+        .footer-brand p {
+            color: #666666;
+            font-size: 16px;
+            max-width: 500px;
+        }
+
+        .footer-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 50px;
+            justify-self: end;
+            width: 310px;
+        }
+
+        .footer-nav a {
+            text-decoration: none;
+            color: #111111;
+            font-size: 16px;
+        }
+
+        .footer-nav a:hover {
+            color: #FF69B4;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: auto;
+            padding: 28px 42px 34px;
+            border-top: 1px solid #dddddd;
+            color: #777777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1000px) {
+
+            .header-inner {
+                height: auto;
+                min-height: 90px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                padding: 25px 25px;
+            }
+
+            nav {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 5px;
+                gap: 24px;
+            }
+
+            main {
+                padding: 0 25px 70px;
+            }
+
+            .featured {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 330px;
+            }
+
+            .endorsement-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                padding: 60px 25px 30px;
+            }
+
+            .footer-bottom {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .logo {
+                font-size: 26px;
+            }
+
+            nav {
+                gap: 20px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .page-intro {
+                padding: 55px 0 45px;
+            }
+
+            .page-intro h1 {
+                font-size: 48px;
+                letter-spacing: -2px;
+            }
+
+            .page-intro p {
+                font-size: 16px;
+            }
+
+            .featured-content {
+                padding: 35px 25px;
+            }
+
+            .featured-content h2 {
+                font-size: 30px;
+            }
+
+            .endorsement-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .endorsement-image {
+                height: 250px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-date {
+                border-right: none;
+                border-bottom: 1px solid #eeeeee;
+                padding-bottom: 15px;
+            }
+
+            .timeline-content {
+                padding-top: 20px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-nav {
+                justify-self: start;
+                width: 100%;
+            }
+        }
+    </style>
+	
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">BINI</a>
+
+            <nav>
+
+                <a href="index.html">Home</a>
+
+                <a href="members.html">Members</a>
+
+                <a href="events.html">Events</a>
+
+                <a href="news.html">News</a>
+
+                <a href="merch.html">Merch</a>
+
+                <a href="endorsements.html" class="active">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="page-intro">
+
+            <div class="section-number">
+                06 — ENDORSEMENTS
+            </div>
+
+            <h1>
+                Brands that<br>
+                grow with BINI.
+            </h1>
+
+            <p>
+                Explore selected brands, campaigns, and collaborations
+                connected with BINI throughout their journey.
+            </p>
+
+        </section>
+
+        <section class="featured">
+
+            <div class="featured-image">
+
+                <img
+                    src="images/endorsements/jollibini.webp"
+                    alt="BINI Jollibee collaboration"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                >
+
+                <div
+                    class="featured-placeholder"
+                    style="display:none;"
+                >
+                    FEATURED ENDORSEMENT
+                </div>
+
+            </div>
+
+            <div class="featured-content">
+
+                <div class="label">
+                    FEATURED
+                </div>
+
+                <h2>
+                    Jollibee × BINI
+                </h2>
+
+                <p>
+                    BINI has collaborated with Jollibee in campaigns
+                    that bring together Filipino pop culture, food,
+                    and the group's growing connection with their fans.
+                </p>
+
+                <a
+                    href="https://www.jollibee.com.ph/"
+                    target="_blank"
+                    class="featured-link"
+                >
+                    Visit Jollibee →
+                </a>
+
+            </div>
+
+        </section>
+
+        <section>
+
+            <div class="section-heading">
+
+                <h2>
+                    Selected Endorsements
+                </h2>
+
+                <span>
+                    01 — 06
+                </span>
+
+            </div>
+
+            <div class="endorsement-grid">
+
+                <article class="endorsement-card">
+
+                    <div class="endorsement-image">
+
+                        <img
+                            src="images/endorsements/bini-1-1726839608.jpg"
+                            alt="Jollibee and BINI"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            JOLLIBEE
+                        </div>
+
+                    </div>
+
+                    <div class="endorsement-info">
+
+                        <div class="endorsement-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Jollibee
+                        </h3>
+
+                        <p>
+                            A major Filipino brand collaboration
+                            featuring BINI in campaigns and promotional
+                            activities.
+                        </p>
+
+                        <span class="endorsement-tag">
+                            Food
+                        </span>
+
+                    </div>
+
+                </article>
+    
+                <article class="endorsement-card">
+
+                    <div class="endorsement-image">
+
+                        <img
+                            src="images/endorsements/globe_x_bini_1727453633_8f08c7a1_progressive.jpg"
+                            alt="Globe and BINI"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            GLOBE
+                        </div>
+
+                    </div>
+
+                    <div class="endorsement-info">
+
+                        <div class="endorsement-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Globe
+                        </h3>
+
+                        <p>
+                            BINI has been associated with Globe campaigns
+                            connecting music, entertainment, and Filipino
+                            youth culture.
+                        </p>
+
+                        <span class="endorsement-tag">
+                            Telecommunications
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="endorsement-card">
+
+                    <div class="endorsement-image">
+
+                        <img
+                            src="images/endorsements/BINI_Coke-Studio-PH-Season-8.webp"
+                            alt="Coke Studios and BINI"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            COKE STUDIOS
+                        </div>
+
+                    </div>
+
+                    <div class="endorsement-info">
+
+                        <div class="endorsement-number">
+                            03
+                        </div>
+
+                        <h3>
+                            Coke Studios
+                        </h3>
+
+                        <p>
+                            A music collaboration showcasing BINI's unique artistry
+                            and influence among young Filipino audiences through music
+                            and self-expression.
+                        </p>
+
+                        <span class="endorsement-tag">
+                            Beverage
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="endorsement-card">
+
+                    <div class="endorsement-image">
+
+                        <img
+                            src="images/endorsements/61a598ef3d2fd441ef518bff3085a2b4.jpeg"
+                            alt="Modess and BINI"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            MODESS
+                        </div>
+
+                    </div>
+
+                    <div class="endorsement-info">
+
+                        <div class="endorsement-number">
+                            04
+                        </div>
+
+                        <h3>
+                            MODESS
+                        </h3>
+
+                        <p>
+                            A feminine collaboration highlighting
+                            Modess and BINI's influence in empowering
+                            and inspiring contemporary Filipino youth.
+                        </p>
+
+                        <span class="endorsement-tag">
+                            Personal Care
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="endorsement-card">
+
+                    <div class="endorsement-image">
+
+                        <img
+                            src="images/endorsements/penshoppe.jpg"
+                            alt="Penshoppe and BINI"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            PENSHOPPE
+                        </div>
+
+                    </div>
+
+                    <div class="endorsement-info">
+
+                        <div class="endorsement-number">
+                            05
+                        </div>
+
+                        <h3>
+                            PENSHOPPE
+                        </h3>
+
+                        <p>
+                            A fashion partnership connected to BINI's
+                            youthful image and growing presence in
+                            Filipino pop culture.
+                        </p>
+
+                        <span class="endorsement-tag">
+                            Fashion
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="endorsement-card">
+
+                    <div class="endorsement-image">
+
+                        <img
+                            src="images/endorsements/enervon.jpeg"
+                            alt="Enervon and BINI"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            ENERVON
+                        </div>
+
+                    </div>
+
+                    <div class="endorsement-info">
+
+                        <div class="endorsement-number">
+                            06
+                        </div>
+
+                        <h3>
+                            Enervon
+                        </h3>
+
+                        <p>
+                            A wellness campaign featuring BINI as part
+                            of Enervon's youth-focused promotions,
+                            highlighting energy, health, and an active lifestyle.
+                        </p>
+
+                        <span class="endorsement-tag">
+                            Health
+                        </span>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <section class="timeline-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Brand Collaborations
+                </h2>
+
+                <span>
+                    BINI × BRANDS
+                </span>
+
+            </div>
+
+            <div class="timeline">
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        FOOD
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Jollibee
+                        </h3>
+
+                        <p>
+                            BINI's connection with one of the country's
+                            most recognizable Filipino food brands,
+                            including promotional campaigns and
+                            fan-focused activities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        BEAUTY
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Beauty & Personal Care
+                        </h3>
+
+                        <p>
+                            BINI's growing influence in beauty and
+                            personal-care campaigns reflects their
+                            strong connection with younger audiences.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        FASHION
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Fashion Partnerships
+                        </h3>
+
+                        <p>
+                            Fashion collaborations highlight BINI's
+                            evolving visual identity and their role
+                            in contemporary Filipino pop culture.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        DIGITAL
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Youth & Digital Campaigns
+                        </h3>
+
+                        <p>
+                            Through digital campaigns and brand
+                            partnerships, BINI continues to connect
+                            music, fandom, and online culture.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <h2>
+                    BINI
+                </h2>
+
+                <p>
+                    A website dedicated to BINI and the BLOOMS community.
+                </p>
+
+            </div>
+
+            <div class="footer-nav">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            © JOANA MARIE GUIBAO 2026
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

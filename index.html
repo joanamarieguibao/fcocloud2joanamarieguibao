@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BINI | Home</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #111111;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 120px;
+            right: -35px;
+            width: 190px;
+            height: 190px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 23px,
+                    #fff0f7 24px 48px,
+                    transparent 49px
+                );
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 40px;
+            left: -55px;
+            width: 180px;
+            height: 180px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 22px,
+                    #fff0f7 23px 47px,
+                    transparent 48px
+                );
+            opacity: 0.75;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .site-header {
+            width: 100%;
+            border-bottom: 1px solid #e5e5e5;
+            background: rgba(255, 255, 255, 0.97);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            min-height: 108px;
+            margin: auto;
+            padding: 0 42px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            color: #FF69B4;
+            text-decoration: none;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 5px;
+
+            flex-shrink: 0;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 30px;
+        }
+
+        .navigation a {
+            position: relative;
+            padding: 8px 0;
+            color: #111111;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+
+        .navigation a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: #FF69B4;
+            transition: width 0.25s ease;
+        }
+
+        .navigation a:hover::after {
+            width: 100%;
+        }
+
+        .navigation a.active {
+            color: #FF69B4;
+            font-weight: 600;
+        }
+
+        .navigation a.active::after {
+            width: 100%;
+        }
+
+        .menu-button {
+            display: none;
+            border: 1px solid #dddddd;
+            background: #ffffff;
+            padding: 9px 15px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        main {
+            width: min(1400px, 100%);
+            margin: auto;
+            padding: 0 42px 100px;
+        }
+
+        .hero {
+            min-height: 610px;
+            display: grid;
+            grid-template-columns: 1fr 0.95fr;
+            align-items: center;
+            gap: 70px;
+            padding: 70px 0 85px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .hero-content {
+            max-width: 680px;
+        }
+
+        .eyebrow {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(55px, 7vw, 88px);
+            line-height: 0.95;
+            font-weight: 700;
+            letter-spacing: -4px;
+            margin-bottom: 30px;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            color: #555555;
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 34px;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 14px 22px;
+            background: #FF69B4;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid #FF69B4;
+            transition:
+                background 0.25s ease,
+                color 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        .button:hover {
+            background: #111111;
+            border-color: #111111;
+            transform: translateY(-2px);
+        }
+
+        .text-link {
+            color: #FF69B4;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .text-link:hover {
+            text-decoration: underline;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 440px;
+            border: 1px solid #dddddd;
+            background: #fff4f9;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.04);
+        }
+
+        .section {
+            padding-top: 85px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 20px;
+            margin-bottom: 0;
+            gap: 40px;
+        }
+
+        .section-heading .eyebrow {
+            margin-bottom: 12px;
+        }
+
+        .section-heading h2 {
+            font-size: 34px;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .section-description {
+            max-width: 500px;
+            color: #555555;
+            font-size: 15px;
+            line-height: 1.6;
+            text-align: right;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-left: 1px solid #dddddd;
+            margin-bottom: 0;
+        }
+
+        .feature-card {
+            display: block;
+            color: #111111;
+            text-decoration: none;
+            background: #ffffff;
+            border-right: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+            overflow: hidden;
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF69B4;
+        }
+
+        .feature-card-image {
+            height: 255px;
+            background: #fff4f9;
+            overflow: hidden;
+        }
+
+        .feature-card-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover .feature-card-image img {
+            transform: scale(1.05);
+        }
+
+        .feature-card-content {
+            min-height: 155px;
+            padding: 27px 28px;
+            display: grid;
+            grid-template-columns: 35px 1fr 25px;
+            gap: 15px;
+            align-items: start;
+        }
+
+        .card-number {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .card-text h3 {
+            font-size: 23px;
+            line-height: 1.15;
+            margin-bottom: 9px;
+        }
+
+        .card-text p {
+            color: #666666;
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        .card-arrow {
+            color: #FF69B4;
+            font-size: 22px;
+            line-height: 1;
+            text-align: right;
+        }
+
+        .featured-section {
+            padding-top: 90px;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border-left: 1px solid #dddddd;
+        }
+
+        .featured-card {
+            background: #ffffff;
+            border-right: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+            overflow: hidden;
+        }
+
+        .featured-card .feature-card-image {
+            height: 330px;
+        }
+
+        .featured-content {
+            padding: 30px;
+        }
+
+        .category {
+            color: #FF69B4;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .featured-content h3 {
+            font-size: 28px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .featured-content > p:not(.category) {
+            color: #666666;
+            font-size: 15px;
+            line-height: 1.65;
+            margin-bottom: 18px;
+        }
+
+        .blooms-preview {
+            margin-top: 90px;
+            padding: 50px;
+            border: 1px solid #dddddd;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .blooms-preview .eyebrow {
+            margin-bottom: 12px;
+        }
+
+        .blooms-preview h2 {
+            font-size: 42px;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .blooms-preview p:not(.eyebrow) {
+            color: #555555;
+            font-size: 16px;
+            max-width: 600px;
+        }
+
+        .site-footer {
+            border-top: 1px solid #e5e5e5;
+            background: #ffffff;
+            position: relative;
+        }
+
+        .footer-container {
+            width: min(1400px, 100%);
+            margin: auto;
+            padding: 76px 42px 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 60px;
+        }
+
+        .footer-container h3 {
+            color: #FF69B4;
+            font-size: 30px;
+            margin-bottom: 18px;
+        }
+
+        .footer-container p {
+            max-width: 500px;
+            color: #666666;
+            font-size: 16px;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px 50px;
+            width: 310px;
+        }
+
+        .footer-links a {
+            color: #111111;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .footer-links a:hover {
+            color: #FF69B4;
+        }
+
+        .copyright {
+            width: min(1400px, 100%);
+            margin: auto;
+            padding: 28px 42px 34px;
+            border-top: 1px solid #dddddd;
+            color: #777777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1050px) {
+
+            .nav-container {
+                min-height: 90px;
+                padding: 0 25px;
+            }
+
+            .navigation {
+                gap: 18px;
+            }
+
+            .navigation a {
+                font-size: 13px;
+            }
+
+            main {
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr 0.9fr;
+                gap: 40px;
+                padding-top: 60px;
+            }
+
+            .hero-image {
+                height: 390px;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+
+            .copyright {
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+        }
+
+        @media (max-width: 800px) {
+
+            .nav-container {
+                min-height: 70px;
+                position: relative;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .navigation {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                padding: 22px 25px;
+                background: #ffffff;
+                border-bottom: 1px solid #dddddd;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+            }
+
+            .navigation.show {
+                display: flex;
+            }
+
+            .navigation a.active::after {
+                display: none;
+            }
+
+            main {
+                padding: 0 25px 70px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+                gap: 40px;
+                padding: 55px 0 65px;
+            }
+
+            .hero-content {
+                max-width: none;
+            }
+
+            .hero h1 {
+                font-size: 60px;
+                letter-spacing: -3px;
+            }
+
+            .hero-image {
+                height: 380px;
+                order: 2;
+            }
+
+            .section {
+                padding-top: 65px;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .section-description {
+                max-width: 600px;
+                text-align: left;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blooms-preview {
+                margin-top: 65px;
+                padding: 35px 25px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                padding: 60px 25px 30px;
+            }
+
+            .copyright {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .logo {
+                font-size: 26px;
+            }
+
+            .hero {
+                padding-top: 45px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+
+                letter-spacing: -2px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .hero-actions {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .hero-image {
+                height: 300px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card-image {
+                height: 250px;
+            }
+
+            .feature-card-content {
+                min-height: auto;
+                padding: 25px;
+            }
+
+            .featured-card .feature-card-image {
+                height: 270px;
+            }
+
+            .featured-content {
+                padding: 25px;
+            }
+
+            .featured-content h3 {
+                font-size: 25px;
+            }
+
+            .blooms-preview h2 {
+                font-size: 35px;
+            }
+
+            .footer-links {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="nav-container">
+
+            <a href="index.html" class="logo">
+                BINI
+            </a>
+
+            <nav class="navigation">
+
+                <a href="index.html" class="active">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </nav>
+
+            <button
+                class="menu-button"
+                id="menuButton"
+                type="button">
+
+                Menu
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    WELCOME TO THE BINI HUB
+                </p>
+
+                <h1>
+                    Everything BINI,
+                    <br>
+                    in one place.
+                </h1>
+
+                <p class="hero-description">
+                    Explore member profiles, upcoming events,
+                    latest news, merchandise, endorsements,
+                    and the BLOOMS community.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a
+                        href="members.html"
+                        class="button">
+
+                        Meet the Members
+
+                    </a>
+
+                    <a
+                        href="events.html"
+                        class="text-link">
+
+                        View Events →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="hero-image">
+
+                <img
+                    src="images/home/Bini-Facebook-OG-1200x630-2-scaled.jpg.webp"
+                    alt="BINI">
+
+            </div>
+
+        </section>
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        EXPLORE
+                    </p>
+
+                    <h2>
+                        Discover BINI
+                    </h2>
+
+                </div>
+
+                <p class="section-description">
+                    Browse the different sections of the
+                    website and discover more about BINI.
+                </p>
+
+            </div>
+
+            <div class="feature-grid">
+
+                <a
+                    href="members.html"
+                    class="feature-card">
+
+                    <div class="feature-card-image">
+
+                        <img
+                            src="images/home/bini--.jpeg"
+                            alt="BINI Members">
+
+                    </div>
+
+                    <div class="feature-card-content">
+
+                        <span class="card-number">
+                            01
+                        </span>
+
+                        <div class="card-text">
+
+                            <h3>
+                                Members
+                            </h3>
+
+                            <p>
+                                Get to know the eight members
+                                of BINI through their profiles.
+                            </p>
+
+                        </div>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="events.html"
+                    class="feature-card">
+
+                    <div class="feature-card-image">
+
+                        <img
+                            src="images/home/binieevenst.jpg"
+                            alt="BINI Events and Schedules">
+
+                    </div>
+
+                    <div class="feature-card-content">
+
+                        <span class="card-number">
+                            02
+                        </span>
+
+                        <div class="card-text">
+
+                            <h3>
+                                Events & Schedules
+                            </h3>
+
+                            <p>
+                                Find upcoming concerts,
+                                appearances, and scheduled events.
+                            </p>
+
+                        </div>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="news.html"
+                    class="feature-card">
+
+                    <div class="feature-card-image">
+
+                        <img
+                            src="images/home/nwesbinisummersonic.jpg"
+                            alt="BINI News">
+
+                    </div>
+
+                    <div class="feature-card-content">
+
+                        <span class="card-number">
+                            03
+                        </span>
+
+                        <div class="card-text">
+
+                            <h3>
+                                News
+                            </h3>
+
+                            <p>
+                                Stay updated with concerts,
+                                world tours, releases,
+                                and announcements.
+                            </p>
+
+                        </div>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="merch.html"
+                    class="feature-card">
+
+                    <div class="feature-card-image">
+
+                        <img
+                            src="images/home/HKgSRK8akAAuXcP.jpg"
+                            alt="BINI Merchandise">
+
+                    </div>
+
+                    <div class="feature-card-content">
+
+                        <span class="card-number">
+                            04
+                        </span>
+
+                        <div class="card-text">
+
+                            <h3>
+                                Merch
+                            </h3>
+
+                            <p>
+                                Browse BINI-inspired merchandise
+                                in our simple online shop.
+                            </p>
+
+                        </div>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="endorsements.html"
+                    class="feature-card">
+
+                    <div class="feature-card-image">
+
+                        <img
+                            src="images/home/bini-brands-as-of-april-28-2025-teambloomph-v0-nylq6hfckixe1.webp"
+                            alt="BINI Endorsements">
+
+                    </div>
+
+                    <div class="feature-card-content">
+
+                        <span class="card-number">
+                            05
+                        </span>
+
+                        <div class="card-text">
+
+                            <h3>
+                                Endorsements
+                            </h3>
+
+                            <p>
+                                Explore brands and campaigns
+                                associated with BINI.
+                            </p>
+
+                        </div>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="blooms.html"
+                    class="feature-card">
+
+                    <div class="feature-card-image">
+
+                        <img
+                            src="images/home/summersonicwelcome-tojapan.jpg"
+                            alt="BLOOMS Corner">
+
+                    </div>
+
+                    <div class="feature-card-content">
+
+                        <span class="card-number">
+                            06
+                        </span>
+
+                        <div class="card-text">
+
+                            <h3>
+                                BLOOMS Corner
+                            </h3>
+
+                            <p>
+                                A space for fan posts,
+                                projects, art, and memories.
+                            </p>
+
+                        </div>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+        <section class="section featured-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        FEATURED
+                    </p>
+
+                    <h2>
+                        What's happening?
+                    </h2>
+
+                </div>
+
+                <a
+                    href="news.html"
+                    class="text-link">
+
+                    See all news →
+
+                </a>
+
+            </div>
+
+            <div class="featured-grid">
+
+                <article class="featured-card">
+
+                    <div class="feature-card-image">
+
+                        <img
+                            src="images/home/HPq-C9aawAAxH_-.jpg"
+                            alt="Latest Updates">
+
+                    </div>
+
+                    <div class="featured-content">
+
+                        <p class="category">
+                            NEWS
+                        </p>
+
+                        <h3>
+                            Latest BINI Updates
+                        </h3>
+
+                        <p>
+                            Follow the latest announcements,
+                            activities, and updates.
+                        </p>
+
+                        <a
+                            href="https://www.gmanetwork.com/news/lifestyle/content/998568/bini-takes-over-osaka-stage-of-summer-sonic-festival-2026/story/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-link">
+
+                            Read more →
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+                <article class="featured-card">
+
+                    <div class="feature-card-image">
+
+                        <img
+                            src="images/home/static_venue_1820x1140_bini_2026_regional_queenelizabeththeatre_0818_a.png"
+                            alt="Upcoming Events">
+
+                    </div>
+
+                    <div class="featured-content">
+
+                        <p class="category">
+                            EVENTS
+                        </p>
+
+                        <h3>
+                            Upcoming Events
+                        </h3>
+
+                        <p>
+                            Check upcoming concerts,
+                            appearances, and activities.
+                        </p>
+
+                        <a
+                            href="events.html"
+                            class="text-link">
+
+                            View schedule →
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <section class="blooms-preview">
+
+            <div>
+
+                <p class="eyebrow">
+                    FOR BLOOMS
+                </p>
+
+                <h2>
+                    BLOOMS Corner
+                </h2>
+
+                <p>
+                    Share your fan projects, artwork,
+                    memories, and community posts.
+                </p>
+
+            </div>
+
+            <a
+                href="blooms.html"
+                class="button">
+
+                Enter BLOOMS Corner
+
+            </a>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="footer-container">
+
+            <div>
+
+                <h3>
+                    BINI
+                </h3>
+
+                <p>
+                    A website dedicated to BINI and the BLOOMS community.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="copyright">
+
+            © JOANA MARIE GUIBAO 2026
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

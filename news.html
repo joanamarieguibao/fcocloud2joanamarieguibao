@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>News | BINI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #111111;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 120px;
+            right: -35px;
+            width: 190px;
+            height: 190px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 23px,
+                    #fff0f7 24px 48px,
+                    transparent 49px
+                );
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 40px;
+            left: -55px;
+            width: 180px;
+            height: 180px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 22px,
+                    #fff0f7 23px 47px,
+                    transparent 48px
+                );
+            opacity: 0.75;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            width: 100%;
+            border-bottom: 1px solid #e5e5e5;
+            background: rgba(255, 255, 255, 0.97);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: auto;
+            height: 108px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 42px;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            color: #FF69B4;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #111111;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            position: relative;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+
+            background: #FF69B4;
+            transition: width 0.25s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: #FF69B4;
+            font-weight: 600;
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 42px 100px;
+        }
+
+        .page-intro {
+            padding: 76px 0 60px;
+            position: relative;
+        }
+
+        .section-number {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #FF69B4;
+            margin-bottom: 34px;
+        }
+
+        .page-intro h1 {
+            font-size: clamp(48px, 6vw, 78px);
+            line-height: 0.95;
+            font-weight: 700;
+            letter-spacing: -3px;
+            max-width: 700px;
+            margin-bottom: 28px;
+        }
+
+        .page-intro p {
+            max-width: 650px;
+            color: #555555;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .featured {
+            border: 1px solid #dddddd;
+            margin-bottom: 70px;
+            background: #ffffff;
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+        }
+
+        .featured-image {
+            min-height: 430px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .featured:hover .featured-image img {
+            transform: scale(1.04);
+        }
+
+        .featured-content {
+            padding: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .label {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        .date {
+            color: #777777;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .featured-content h2 {
+            font-size: 38px;
+            line-height: 1.1;
+            margin-bottom: 22px;
+        }
+
+        .featured-content p {
+            color: #555555;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .read-more {
+            color: #FF69B4;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 20px;
+            margin-bottom: 0;
+        }
+
+        .section-heading h2 {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .section-heading span {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-left: 1px solid #dddddd;
+            margin-bottom: 80px;
+        }
+
+        .news-card {
+            border-right: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+            background: #ffffff;
+            overflow: hidden;
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF69B4;
+        }
+
+        .news-image {
+            height: 270px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+
+        .news-info {
+            padding: 30px;
+        }
+
+        .news-number {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .news-category {
+            color: #FF69B4;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .news-date {
+            color: #777777;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+
+        .news-info h3 {
+            font-size: 25px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .news-info p {
+            color: #555555;
+            font-size: 15px;
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+
+        .timeline-section {
+            margin-top: 30px;
+        }
+
+        .timeline {
+            border-left: 1px solid #dddddd;
+            margin-top: 20px;
+            margin-bottom: 80px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            border-bottom: 1px solid #dddddd;
+            min-height: 130px;
+        }
+
+        .timeline-date {
+            padding: 30px;
+            border-right: 1px solid #dddddd;
+            color: #FF69B4;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .timeline-content {
+            padding: 30px;
+        }
+
+        .timeline-content h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: #666666;
+            max-width: 750px;
+            font-size: 15px;
+        }
+
+        .timeline-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #FF69B4;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .timeline-link:hover {
+            text-decoration: underline;
+        }
+
+        .updates-section {
+            margin-top: 30px;
+            margin-bottom: 80px;
+        }
+
+        .updates-list {
+            border-left: 1px solid #dddddd;
+        }
+
+        .update-item {
+            display: grid;
+            grid-template-columns: 180px 1fr auto;
+            align-items: center;
+            border-bottom: 1px solid #dddddd;
+            border-right: 1px solid #dddddd;
+            min-height: 120px;
+            transition: background 0.25s ease;
+        }
+
+        .update-item:hover {
+            background: #fff4f9;
+        }
+
+        .update-date {
+            padding: 30px;
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .update-content {
+            padding: 30px;
+        }
+
+        .update-content h3 {
+            font-size: 20px;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .update-content p {
+            color: #666666;
+            font-size: 14px;
+        }
+
+        .update-arrow {
+            padding: 30px;
+            color: #FF69B4;
+            font-size: 22px;
+            text-decoration: none;
+        }
+
+        footer {
+            border-top: 1px solid #e5e5e5;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: auto;
+            padding: 76px 42px 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h2 {
+            color: #FF69B4;
+            font-size: 30px;
+            margin-bottom: 18px;
+        }
+
+        .footer-brand p {
+            color: #666666;
+            font-size: 16px;
+            max-width: 500px;
+        }
+
+        .footer-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 50px;
+            justify-self: end;
+            width: 310px;
+        }
+
+        .footer-nav a {
+            text-decoration: none;
+            color: #111111;
+            font-size: 16px;
+        }
+
+        .footer-nav a:hover {
+            color: #FF69B4;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: auto;
+            padding: 28px 42px 34px;
+            border-top: 1px solid #dddddd;
+            color: #777777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1000px) {
+
+            .header-inner {
+                height: auto;
+                min-height: 90px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                padding: 25px 25px;
+            }
+
+            nav {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 5px;
+                gap: 24px;
+            }
+
+            main {
+                padding: 0 25px 70px;
+            }
+
+            .featured {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 330px;
+            }
+
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .update-item {
+                grid-template-columns: 150px 1fr auto;
+            }
+
+            .footer-inner {
+                padding: 60px 25px 30px;
+            }
+
+            .footer-bottom {
+                padding: 25px;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .logo {
+                font-size: 26px;
+            }
+
+            nav {
+                gap: 20px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .page-intro {
+                padding: 55px 0 45px;
+            }
+
+            .page-intro h1 {
+                font-size: 48px;
+                letter-spacing: -2px;
+            }
+
+            .page-intro p {
+                font-size: 16px;
+            }
+
+            .featured-content {
+                padding: 35px 25px;
+            }
+
+            .featured-content h2 {
+                font-size: 30px;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-image {
+                height: 250px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-date {
+                border-right: none;
+                border-bottom: 1px solid #eeeeee;
+                padding-bottom: 15px;
+            }
+
+            .timeline-content {
+                padding-top: 20px;
+            }
+
+            .update-item {
+                grid-template-columns: 1fr auto;
+            }
+
+            .update-date {
+                padding-bottom: 0;
+            }
+
+            .update-content {
+                padding-top: 15px;
+            }
+
+            .update-arrow {
+                grid-column: 2;
+                grid-row: 1 / span 2;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-nav {
+                justify-self: start;
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                BINI
+            </a>
+
+            <nav>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html" class="active">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="page-intro">
+
+            <div class="section-number">
+                04 — NEWS
+            </div>
+
+            <h1>
+                What's<br>
+                blooming.
+            </h1>
+
+            <p>
+                Catch up on BINI's latest stories, music releases,
+                international milestones, performances, and updates
+                from the group's growing journey.
+            </p>
+
+        </section>
+
+        <section class="featured">
+
+            <div class="featured-image">
+
+                <img
+                    src="images/news/BINI-JAPAN.png"
+                    alt="BINI at Summer Sonic Festival"
+                    onerror="this.style.display='none';"
+                >
+
+            </div>
+
+
+            <div class="featured-content">
+
+                <div class="label">
+                    FEATURED STORY
+                </div>
+
+                <div class="date">
+                    AUGUST 2026
+                </div>
+
+                <h2>
+                    BINI Takes Over
+                    the Osaka Stage
+                    of Summer Sonic.
+                </h2>
+
+                <p>
+                    BINI brought their music to Japan as they
+                    performed at Summer Sonic Festival in Osaka,
+                    marking another major international appearance
+                    for the group.
+                </p>
+
+                <a
+                    href="https://www.gmanetwork.com/news/lifestyle/content/998568/bini-takes-over-osaka-stage-of-summer-sonic-festival-2026/story/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="read-more"
+                >
+                    Read More →
+                </a>
+
+            </div>
+
+        </section>
+
+        <section>
+
+            <div class="section-heading">
+
+                <h2>
+                    Latest News
+                </h2>
+
+                <span>
+                    01 — 06
+                </span>
+
+            </div>
+
+            <div class="news-grid">
+
+                <article class="news-card">
+
+                    <div class="news-image">
+
+                        <img
+                            src="images/news/BINI-Signals-World-Tour-in-Manila-4-scaled.avif"
+                            alt="BINI concert performance"
+                        >
+
+                    </div>
+
+                    <div class="news-info">
+
+                        <div class="news-number">
+                            01
+                        </div>
+
+                        <div class="news-category">
+                            WORLD TOUR
+                        </div>
+
+                        <div class="news-date">
+                            JUNE 2026
+                        </div>
+
+                        <h3>
+                            BINI Kicks Off
+                            Signals World Tour
+                        </h3>
+
+                        <p>
+                            BINI officially began their Signals World
+                            Tour with sold-out shows in the Philippines
+                            before continuing their international dates.
+                        </p>
+
+                        <a
+                            href="https://corporate.abs-cbn.com/newsroom/news-releases/2026/6/26/bini-kicks-off-signals-world-tour-with-sold-out-ph-shows-11-stop-north-american-leg-happening-in-august?lang=en"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="read-more"
+                        >
+                            Read More →
+                        </a>
+
+                    </div>
+
+                </article>
+
+                <article class="news-card">
+
+                    <div class="news-image">
+
+                        <img
+                            src="images/news/BINI-scaled.avif"
+                            alt="Music performance"
+                        >
+
+                    </div>
+
+                    <div class="news-info">
+
+                        <div class="news-number">
+                            02
+                        </div>
+
+                        <div class="news-category">
+                            MUSIC
+                        </div>
+
+                        <div class="news-date">
+                            APRIL 2026
+                        </div>
+
+                        <h3>
+                            BINI Releases
+                            Signals EP
+                        </h3>
+
+                        <p>
+                            BINI entered a new musical chapter with the
+                            release of their third EP, Signals, ahead of
+                            their international performances.
+                        </p>
+
+                        <a
+                            href="https://corporate.abs-cbn.com/newsroom/news-releases/2026/4/9/bini-drops-new-ep-signals-set-to-debut-key-track-blush-at-coachella?lang=en"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="read-more"
+                        >
+                            Read More →
+                        </a>
+
+                    </div>
+
+                </article>
+
+                <article class="news-card">
+
+                    <div class="news-image">
+
+                        <img
+                            src="images/news/bini-main-1775873715.jpg"
+                            alt="International music festival"
+                        >
+
+                    </div>
+
+                    <div class="news-info">
+
+                        <div class="news-number">
+                            03
+                        </div>
+
+                        <div class="news-category">
+                            GLOBAL
+                        </div>
+
+                        <div class="news-date">
+                            APRIL 2026
+                        </div>
+
+                        <h3>
+                            BINI Makes History
+                            at Coachella
+                        </h3>
+
+                        <p>
+                            BINI made history with their Coachella
+                            performances, bringing Filipino pride to
+                            one of the world's biggest music festivals.
+                        </p>
+
+                        <a
+                            href="https://corporate.abs-cbn.com/newsroom/news-releases/2026/4/15/bini-brings-filipino-pride-anew-at-coachella-this-april-18-ph-time?lang=en"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="read-more"
+                        >
+                            Read More →
+                        </a>
+
+                    </div>
+
+                </article>
+
+                <article class="news-card">
+
+                    <div class="news-image">
+
+                        <img
+                            src="images/news/images.jpeg"
+                            alt="Live stage performance"
+                        >
+
+                    </div>
+
+                    <div class="news-info">
+
+                        <div class="news-number">
+                            04
+                        </div>
+
+                        <div class="news-category">
+                            WORLD TOUR
+                        </div>
+
+                        <div class="news-date">
+                            JUNE 2026
+                        </div>
+
+                        <h3>
+                            Signals World Tour
+                            Expands to Australia
+                        </h3>
+
+                        <p>
+                            BINI added Australia and New Zealand to
+                            their international tour route, expanding
+                            their global reach even further.
+                        </p>
+
+                        <a
+                            href="https://corporate.abs-cbn.com/newsroom/news-releases/2026/6/6/bini-brings-signals-world-tour-to-australia-and-new-zealand-with-new-stops-in-melbourne-auckland-and-sydney?lang=en"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="read-more"
+                        >
+                            Read More →
+                        </a>
+
+                    </div>
+
+                </article>
+
+                <article class="news-card">
+
+                    <div class="news-image">
+
+                        <img
+                            src="images/news/BINI-with-the-Signal-Detected-audience.avif"
+                            alt="Concert audience"
+                        >
+
+                    </div>
+
+                    <div class="news-info">
+
+                        <div class="news-number">
+                            05
+                        </div>
+
+                        <div class="news-category">
+                            MILESTONE
+                        </div>
+
+                        <div class="news-date">
+                            MARCH 2026
+                        </div>
+
+                        <h3>
+                            BINI Celebrates
+                            a Record-Breaking Crowd
+                        </h3>
+
+                        <p>
+                            The group celebrated a major milestone
+                            with a record-breaking crowd while
+                            preparing for their next era.
+                        </p>
+
+                        <a
+                            href="https://corporate.abs-cbn.com/newsroom/news-releases/2026/3/24/bini-electrifies-record-breaking-15-8k-crowd-announces-upcoming-signals-ep-concert?lang=en"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="read-more"
+                        >
+                            Read More →
+                        </a>
+
+                    </div>
+
+                </article>
+
+                <article class="news-card">
+
+                    <div class="news-image">
+
+                        <img
+                            src="images/news/images (1).jpeg"
+                            alt="Music festival stage"
+                        >
+
+                    </div>
+
+                    <div class="news-info">
+
+                        <div class="news-number">
+                            06
+                        </div>
+
+                        <div class="news-category">
+                            INTERNATIONAL
+                        </div>
+
+                        <div class="news-date">
+                            AUGUST 2026
+                        </div>
+
+                        <h3>
+                            BINI Brings Filipino
+                            Pride to Japan
+                        </h3>
+
+                        <p>
+                            Their Summer Sonic appearances in Osaka
+                            and Tokyo marked another exciting step in
+                            BINI's international journey.
+                        </p>
+
+                        <a
+                            href="https://www.gmanetwork.com/news/lifestyle/content/998568/bini-takes-over-osaka-stage-of-summer-sonic-festival-2026/story/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="read-more"
+                        >
+                            Read More →
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <section class="timeline-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    BINI Highlights
+                </h2>
+
+                <span>
+                    2026
+                </span>
+
+            </div>
+
+            <div class="timeline">
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        APR 09
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Signals EP Released
+                        </h3>
+
+                        <p>
+                            BINI released their third extended play,
+                            Signals, opening a new chapter for the group
+                            and leading into their international activities.
+                        </p>
+
+                        <a
+                            href="https://corporate.abs-cbn.com/newsroom/news-releases/2026/4/9/bini-drops-new-ep-signals-set-to-debut-key-track-blush-at-coachella?lang=en"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="timeline-link"
+                        >
+                            Read Article →
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        APR 10 / 17
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            BINI Performs at Coachella
+                        </h3>
+
+                        <p>
+                            The group took the Coachella stage for two
+                            performances, marking a significant moment
+                            in their international career.
+                        </p>
+
+                        <a
+                            href="https://corporate.abs-cbn.com/newsroom/news-releases/2026/4/15/bini-brings-filipino-pride-anew-at-coachella-this-april-18-ph-time?lang=en"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="timeline-link"
+                        >
+                            Read Article →
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        JUN 20 / 21
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Signals World Tour Begins
+                        </h3>
+
+                        <p>
+                            BINI launched the Signals World Tour with
+                            sold-out Philippine shows before heading
+                            into its international tour legs.
+                        </p>
+
+                        <a
+                            href="https://corporate.abs-cbn.com/newsroom/news-releases/2026/6/26/bini-kicks-off-signals-world-tour-with-sold-out-ph-shows-11-stop-north-american-leg-happening-in-august?lang=en"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="timeline-link"
+                        >
+                            Read Article →
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        AUG 14
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Summer Sonic — Osaka
+                        </h3>
+
+                        <p>
+                            BINI performed at Summer Sonic Festival in
+                            Osaka, adding another major international
+                            festival appearance to their 2026 journey.
+                        </p>
+
+                        <a
+                            href="https://www.gmanetwork.com/news/lifestyle/content/998568/bini-takes-over-osaka-stage-of-summer-sonic-festival-2026/story/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="timeline-link"
+                        >
+                            Read Article →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="updates-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    More News
+                </h2>
+
+                <span>
+                    READ MORE
+                </span>
+
+            </div>
+
+            <div class="updates-list">
+
+                <a
+                    href="https://corporate.abs-cbn.com/newsroom/news-releases/2026/3/24/bini-electrifies-record-breaking-15-8k-crowd-announces-upcoming-signals-ep-concert?lang=en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="update-item"
+                >
+
+                    <div class="update-date">
+                        MAR 24, 2026
+                    </div>
+
+                    <div class="update-content">
+
+                        <h3>
+                            BINI electrifies a record-breaking
+                            crowd ahead of the Signals era.
+                        </h3>
+
+                        <p>
+                            A major milestone before the group's
+                            next musical chapter.
+                        </p>
+
+                    </div>
+
+                    <span class="update-arrow">
+                        →
+                    </span>
+
+                </a>
+
+                <a
+                    href="https://corporate.abs-cbn.com/newsroom/news-releases/2026/4/28/history-making-girl-group-bini-to-embark-on-second-world-tour?lang=en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="update-item"
+                >
+
+                    <div class="update-date">
+                        APR 28, 2026
+                    </div>
+
+                    <div class="update-content">
+
+                        <h3>
+                            BINI prepares for another major
+                            international tour chapter.
+                        </h3>
+
+                        <p>
+                            The group's global activities continue
+                            to expand throughout 2026.
+                        </p>
+
+                    </div>
+
+                    <span class="update-arrow">
+                        →
+                    </span>
+
+                </a>
+
+                <a
+                    href="https://www.gmanetwork.com/news/lifestyle/content/998568/bini-takes-over-osaka-stage-of-summer-sonic-festival-2026/story/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="update-item"
+                >
+
+                    <div class="update-date">
+                        AUG 2026
+                    </div>
+
+                    <div class="update-content">
+
+                        <h3>
+                            BINI takes over the Osaka stage
+                            of Summer Sonic Festival.
+                        </h3>
+
+                        <p>
+                            Read the full story about their
+                            historic Japanese festival appearance.
+                        </p>
+
+                    </div>
+
+                    <span class="update-arrow">
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <h2>
+                    BINI
+                </h2>
+
+                <p>
+                    A website dedicated to BINI and the BLOOMS community.
+                </p>
+
+            </div>
+
+            <div class="footer-nav">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            © JOANA MARIE GUIBAO 2026
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BLOOMS Corner | BINI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #111111;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 120px;
+            right: -35px;
+            width: 190px;
+            height: 190px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 23px,
+                    #fff0f7 24px 48px,
+                    transparent 49px
+                );
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 40px;
+            left: -55px;
+            width: 180px;
+            height: 180px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 22px,
+                    #fff0f7 23px 47px,
+                    transparent 48px
+                );
+
+            opacity: 0.75;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            width: 100%;
+            border-bottom: 1px solid #e5e5e5;
+            background: rgba(255, 255, 255, 0.97);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: auto;
+            height: 108px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 42px;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            color: #FF69B4;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #111111;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            position: relative;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: #FF69B4;
+            transition: width 0.25s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: #FF69B4;
+            font-weight: 600;
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 42px 100px;
+        }
+
+        .page-intro {
+            padding: 76px 0 60px;
+            position: relative;
+        }
+
+        .section-number {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #FF69B4;
+            margin-bottom: 34px;
+        }
+
+        .page-intro h1 {
+            font-size: clamp(48px, 6vw, 78px);
+            line-height: 0.95;
+            font-weight: 700;
+            letter-spacing: -3px;
+            max-width: 700px;
+            margin-bottom: 28px;
+        }
+
+        .page-intro p {
+            max-width: 650px;
+            color: #555555;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .featured {
+            border: 1px solid #dddddd;
+            margin-bottom: 70px;
+            background: #ffffff;
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+        }
+
+        .featured-image {
+            min-height: 430px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .featured-placeholder {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        .featured-content {
+            padding: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .label {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .featured-content h2 {
+            font-size: 38px;
+            line-height: 1.1;
+            margin-bottom: 22px;
+        }
+
+        .featured-content p {
+            color: #555555;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .featured-link {
+            color: #FF69B4;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .featured-link:hover {
+            text-decoration: underline;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 20px;
+            margin-bottom: 0;
+        }
+
+        .section-heading h2 {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .section-heading span {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .blooms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-left: 1px solid #dddddd;
+            margin-bottom: 80px;
+        }
+
+        .bloom-card {
+            border-right: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+            background: #ffffff;
+            text-decoration: none;
+            color: #111111;
+            display: block;
+        }
+
+        .bloom-image {
+            height: 270px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .bloom-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-placeholder {
+            color: #FF69B4;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .bloom-info {
+            padding: 30px;
+        }
+
+        .bloom-number {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .bloom-info h3 {
+            font-size: 25px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .bloom-info p {
+            color: #555555;
+            font-size: 15px;
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+
+        .bloom-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #111111;
+            border-bottom: 1px solid #FF69B4;
+            padding-bottom: 3px;
+        }
+
+        .timeline-section {
+            margin-top: 30px;
+        }
+
+        .timeline {
+            border-left: 1px solid #dddddd;
+            margin-top: 20px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            border-bottom: 1px solid #dddddd;
+            min-height: 130px;
+            text-decoration: none;
+            color: #111111;
+        }
+
+        .timeline-date {
+            padding: 30px;
+            border-right: 1px solid #dddddd;
+            color: #FF69B4;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .timeline-content {
+            padding: 30px;
+        }
+
+        .timeline-content h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: #666666;
+            max-width: 750px;
+            font-size: 15px;
+        }
+
+        .timeline-arrow {
+            color: #FF69B4;
+            font-size: 22px;
+            margin-top: 10px;
+            display: inline-block;
+            transition: transform 0.25s ease;
+        }
+
+        .timeline-item:hover .timeline-arrow {
+            transform: translateX(7px);
+        }
+
+        footer {
+            border-top: 1px solid #e5e5e5;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: auto;
+            padding: 76px 42px 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h2 {
+            color: #FF69B4;
+            font-size: 30px;
+            margin-bottom: 18px;
+        }
+
+        .footer-brand p {
+            color: #666666;
+            font-size: 16px;
+            max-width: 500px;
+        }
+
+        .footer-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 50px;
+            justify-self: end;
+            width: 310px;
+        }
+
+        .footer-nav a {
+            text-decoration: none;
+            color: #111111;
+            font-size: 16px;
+        }
+
+        .footer-nav a:hover {
+            color: #FF69B4;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: auto;
+            padding: 28px 42px 34px;
+            border-top: 1px solid #dddddd;
+            color: #777777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1000px) {
+
+            .header-inner {
+                height: auto;
+                min-height: 90px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                padding: 25px 25px;
+            }
+
+            nav {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 5px;
+                gap: 24px;
+            }
+
+            main {
+                padding: 0 25px 70px;
+            }
+
+            .featured {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 330px;
+            }
+
+            .blooms-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                padding: 60px 25px 30px;
+            }
+
+            .footer-bottom {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .logo {
+                font-size: 26px;
+            }
+
+            nav {
+                gap: 20px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .page-intro {
+                padding: 55px 0 45px;
+            }
+
+            .page-intro h1 {
+                font-size: 48px;
+                letter-spacing: -2px;
+            }
+
+            .page-intro p {
+                font-size: 16px;
+            }
+
+            .featured-content {
+                padding: 35px 25px;
+            }
+
+            .featured-content h2 {
+                font-size: 30px;
+            }
+
+            .blooms-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bloom-image {
+                height: 250px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-date {
+                border-right: none;
+                border-bottom: 1px solid #eeeeee;
+                padding-bottom: 15px;
+            }
+
+            .timeline-content {
+                padding-top: 20px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-nav {
+                justify-self: start;
+                width: 100%;
+            }
+        }
+    </style>
+	
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                BINI
+            </a>
+
+            <nav>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html" class="active">
+                    BLOOMS Corner
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="page-intro">
+
+            <div class="section-number">
+                07 — BLOOMS CORNER
+            </div>
+
+            <h1>
+                Where the<br>
+                Blooms grow.
+            </h1>
+
+            <p>
+                A space celebrating the fans who continue to support
+                BINI through local activities, international projects,
+                creative gifts, fundraising efforts, and community work.
+            </p>
+
+        </section>
+
+        <section class="featured">
+
+            <div class="featured-image">
+
+                <img
+                    src="https://biniatcoachella.info/cdn-cgi/image/f%3Dwebp%2Cq%3D80/images/tbu/billboard-bini.jpg"
+                    alt="Team Bloom USA BINI Coachella billboard"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                >
+
+                <div
+                    class="featured-placeholder"
+                    style="display:none;"
+                >
+                    BLOOMS ACROSS BORDERS
+                </div>
+
+            </div>
+
+            <div class="featured-content">
+
+                <div class="label">
+                    FEATURED BLOOM PROJECT
+                </div>
+
+                <h2>
+                    Supporting BINI beyond borders.
+                </h2>
+
+                <p>
+                    Blooms from different parts of the world have come
+                    together to celebrate BINI's milestones. One example
+                    is Team Bloom USA's Coachella campaign, which brought
+                    together fans for billboard and other fan projects.
+                </p>
+
+                <a
+                    href="https://biniatcoachella.info/donate"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="featured-link"
+                >
+                    View Project →
+                </a>
+
+            </div>
+
+        </section>
+
+        <section>
+
+            <div class="section-heading">
+
+                <h2>
+                    Bloom Activities
+                </h2>
+
+                <span>
+                    01 — 06
+                </span>
+
+            </div>
+
+            <div class="blooms-grid">
+
+                <a
+                    href="https://corporate.abs-cbn.com/newsroom/news-releases/2025/7/2/bini-here-with-you-homecoming-fan-meet?lang=en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bloom-card"
+                >
+
+                    <div class="bloom-image">
+
+                        <img
+                            src="images/blooms/0f18fe8db2f04281c6c20693ac011e59c25107af3c2d446ddee15a2354dccc3e.webp"
+                            alt="BINI Homecoming Fan Meet"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            HOMECOMING
+                        </div>
+
+                    </div>
+
+                    <div class="bloom-info">
+
+                        <div class="bloom-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Pasalubong from the Tour
+                        </h3>
+
+                        <p>
+                            Blooms have celebrated BINI's return home
+                            after international tours through fan meets,
+                            surprises, gifts, and special activities.
+                        </p>
+
+                        <span class="bloom-tag">
+                            Fan Events
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="https://www.instagram.com/p/DZbwl5nlB-q/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bloom-card"
+                >
+
+                    <div class="bloom-image">
+
+                        <img
+                            src="images/blooms/images.jpeg"
+                            alt="Bloom fan project for BINI"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            FAN PROJECT
+                        </div>
+
+                    </div>
+
+                    <div class="bloom-info">
+
+                        <div class="bloom-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Gifts for the Girls
+                        </h3>
+
+                        <p>
+                            Blooms prepare letters, flowers, handmade
+                            gifts, freebies, and other thoughtful
+                            projects for BINI during special occasions.
+                        </p>
+
+                        <span class="bloom-tag">
+                            Fan Projects
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="https://biniatcoachella.info/donate"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bloom-card"
+                >
+
+                    <div class="bloom-image">
+
+                        <img
+                            src="https://biniatcoachella.info/cdn-cgi/image/f%3Dwebp%2Cq%3D80/images/tbu/billboard-bini.jpg"
+                            alt="Team Bloom USA fundraising project"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            FUNDRAISING
+                        </div>
+
+                    </div>
+
+                    <div class="bloom-info">
+
+                        <div class="bloom-number">
+                            03
+                        </div>
+
+                        <h3>
+                            Community Fundraising
+                        </h3>
+
+                        <p>
+                            Bloom communities have organized fundraising
+                            campaigns to turn collective fan support into
+                            projects celebrating BINI's milestones.
+                        </p>
+
+                        <span class="bloom-tag">
+                            Fundraising
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="https://www.facebook.com/teambloomph/posts/did-you-know-aside-from-binis-undeniable-talent-they-also-have-hearts-just-as-bi/961846839542830/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bloom-card"
+                >
+
+                    <div class="bloom-image">
+
+                        <img
+                            src="images/blooms/images (1).jpeg"
+                            alt="Bloom community support project"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            COMMUNITY
+                        </div>
+
+                    </div>
+
+                    <div class="bloom-info">
+
+                        <div class="bloom-number">
+                            04
+                        </div>
+
+                        <h3>
+                            Supporting Causes
+                        </h3>
+
+                        <p>
+                            Some Bloom-led initiatives extend beyond
+                            fandom, including community assistance,
+                            relief efforts, and charitable fundraising.
+                        </p>
+
+                        <span class="bloom-tag">
+                            Charity
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="https://www.instagram.com/p/Dbr8SWhGox9/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bloom-card"
+                >
+
+                    <div class="bloom-image">
+
+                        <img
+                            src="images/blooms/images (2).jpeg"
+                            alt="Team Bloom USA supporting BINI"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            BLOOMS WORLDWIDE
+                        </div>
+
+                    </div>
+
+                    <div class="bloom-info">
+
+                        <div class="bloom-number">
+                            05
+                        </div>
+
+                        <h3>
+                            Blooms Across Borders
+                        </h3>
+
+                        <p>
+                            International Bloom communities continue
+                            to create projects for BINI wherever the
+                            group performs around the world.
+                        </p>
+
+                        <span class="bloom-tag">
+                            International
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="https://www.reddit.com/r/bini_ph/comments/1p8zq4y/unified_in_binified_catch_all_these_fan_projects/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bloom-card"
+                >
+
+                    <div class="bloom-image">
+
+                        <img
+                            src="images/blooms/unified-in-binified-catch-all-these-fan-projects-organized-v0-mjy8phpi214g1.webp"
+                            alt="BINI Bloom community project"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            BLOOM COMMUNITY
+                        </div>
+
+                    </div>
+
+                    <div class="bloom-info">
+
+                        <div class="bloom-number">
+                            06
+                        </div>
+
+                        <h3>
+                            Fan Projects That Connect
+                        </h3>
+
+                        <p>
+                            From banners and billboards to organized
+                            gifts and fan activities, Blooms continue
+                            to find creative ways to celebrate BINI.
+                        </p>
+
+                        <span class="bloom-tag">
+                            Community
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+        <section class="timeline-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Bloom Community
+                </h2>
+
+                <span>
+                    BLOOMS × BINI
+                </span>
+
+            </div>
+
+            <div class="timeline">
+
+                <a
+                    href="https://biniatcoachella.info/donate"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="timeline-item"
+                >
+
+                    <div class="timeline-date">
+                        PROJECTS
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Celebrating BINI's Milestones
+                        </h3>
+
+                        <p>
+                            Bloom communities create coordinated projects
+                            to celebrate important achievements, releases,
+                            performances, and milestones in BINI's career.
+                        </p>
+
+                        <span class="timeline-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="https://biniatcoachella.info/donate"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="timeline-item"
+                >
+
+                    <div class="timeline-date">
+                        OVERSEAS
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Welcoming BINI Abroad
+                        </h3>
+
+                        <p>
+                            International Blooms have organized different
+                            fan projects to welcome and support BINI
+                            during their overseas activities and tours.
+                        </p>
+
+                        <span class="timeline-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="https://biniatcoachella.info/donate"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="timeline-item"
+                >
+
+                    <div class="timeline-date">
+                        CHARITY
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Fandom with a Purpose
+                        </h3>
+
+                        <p>
+                            Some Bloom initiatives use fan celebrations
+                            as opportunities to support charitable and
+                            community-focused causes.
+                        </p>
+
+                        <span class="timeline-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <a
+                    href="https://weverse.io/bini/fanpost/1-173033182"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="timeline-item"
+                >
+
+                    <div class="timeline-date">
+                        GLOBAL
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            One Fandom, Many Places
+                        </h3>
+
+                        <p>
+                            Whether in the Philippines or overseas,
+                            Blooms continue to build a supportive
+                            community around BINI and their music.
+                        </p>
+
+                        <span class="timeline-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <h2>
+                    BINI
+                </h2>
+
+                <p>
+                    A website dedicated to BINI and the BLOOMS community.
+                </p>
+
+            </div>
+
+            <div class="footer-nav">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            © JOANA MARIE GUIBAO 2026
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

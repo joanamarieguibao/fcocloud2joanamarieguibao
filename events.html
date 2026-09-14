@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Events & Schedules | BINI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #111111;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 120px;
+            right: -45px;
+            width: 190px;
+            height: 190px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 23px,
+                    #fff0f7 24px 48px,
+                    transparent 49px
+                );
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 40px;
+            left: -55px;
+            width: 180px;
+            height: 180px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 22px,
+                    #fff0f7 23px 47px,
+                    transparent 48px
+                );
+            opacity: 0.75;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            width: 100%;
+            height: 108px;
+            border-bottom: 1px solid #e5e5e5;
+            background: rgba(255, 255, 255, 0.97);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            height: 100%;
+            margin: auto;
+            padding: 0 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: #FF69B4;
+            text-decoration: none;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 5px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            position: relative;
+            color: #111111;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: #FF69B4;
+            transition: width 0.25s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: #FF69B4;
+            font-weight: 600;
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 42px 100px;
+        }
+
+        .page-intro {
+            padding: 76px 0 60px;
+        }
+
+        .section-number {
+            color: #FF69B4;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 34px;
+        }
+
+        .page-intro h1 {
+            max-width: 800px;
+            font-size: clamp(48px, 6vw, 78px);
+            line-height: 0.95;
+            font-weight: 700;
+            letter-spacing: -3px;
+            margin-bottom: 28px;
+        }
+
+        .page-intro p {
+            max-width: 680px;
+            color: #555555;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .featured-event {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            border: 1px solid #dddddd;
+            background: #ffffff;
+            margin-bottom: 70px;
+        }
+
+        .featured-image {
+            min-height: 430px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-placeholder {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        .featured-content {
+            padding: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .label {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .featured-content h2 {
+            font-size: 38px;
+            line-height: 1.1;
+            margin-bottom: 22px;
+        }
+
+        .featured-content p {
+            color: #555555;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .featured-link {
+            color: #FF69B4;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .featured-link:hover {
+            text-decoration: underline;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .section-heading span {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .tour-section {
+            margin-bottom: 80px;
+        }
+
+        .tour-list {
+            border-left: 1px solid #dddddd;
+        }
+
+        .tour-item {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            min-height: 145px;
+            border-bottom: 1px solid #dddddd;
+            background: #ffffff;
+        }
+
+        .tour-date {
+            padding: 30px;
+            border-right: 1px solid #dddddd;
+            color: #FF69B4;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .tour-info {
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .tour-details h3 {
+            font-size: 23px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .tour-details p {
+            color: #666666;
+            font-size: 15px;
+        }
+
+        .tour-location {
+            min-width: 180px;
+            text-align: right;
+            color: #555555;
+            font-size: 14px;
+        }
+
+        .tour-location strong {
+            display: block;
+            color: #111111;
+            margin-bottom: 4px;
+        }
+
+        .phase-section {
+            margin-bottom: 80px;
+        }
+
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border-left: 1px solid #dddddd;
+        }
+
+        .phase-card {
+            border-right: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+            padding: 35px;
+            background: #ffffff;
+        }
+
+        .phase-number {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .phase-card h3 {
+            font-size: 27px;
+            line-height: 1.15;
+            margin-bottom: 15px;
+        }
+
+        .phase-card p {
+            color: #666666;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .special-section {
+            margin-bottom: 80px;
+        }
+
+        .special-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-left: 1px solid #dddddd;
+        }
+
+        .special-card {
+            border-right: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+            background: #ffffff;
+        }
+
+        .special-image {
+            height: 250px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .special-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .special-info {
+            padding: 30px;
+        }
+
+        .special-date {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .special-info h3 {
+            font-size: 23px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .special-info p {
+            color: #666666;
+            font-size: 15px;
+            line-height: 1.65;
+        }
+
+        footer {
+            border-top: 1px solid #e5e5e5;
+            background: #ffffff;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: auto;
+            padding: 76px 42px 30px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h2 {
+            color: #FF69B4;
+            font-size: 30px;
+            margin-bottom: 18px;
+        }
+
+        .footer-brand p {
+            max-width: 500px;
+            color: #666666;
+            font-size: 16px;
+        }
+
+        .footer-nav {
+            width: 310px;
+            justify-self: end;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 50px;
+        }
+
+        .footer-nav a {
+            color: #111111;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .footer-nav a:hover {
+            color: #FF69B4;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: auto;
+            padding: 28px 42px 34px;
+            border-top: 1px solid #dddddd;
+
+            color: #777777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1000px) {
+
+            header {
+                height: auto;
+            }
+
+            .header-inner {
+                min-height: 90px;
+                height: auto;
+                padding: 25px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            nav {
+                width: 100%;
+                overflow-x: auto;
+                gap: 24px;
+                padding-bottom: 5px;
+            }
+
+            main {
+                padding: 0 25px 70px;
+            }
+
+            .featured-event {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 330px;
+            }
+
+            .special-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                padding: 60px 25px 30px;
+            }
+
+            .footer-bottom {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .logo {
+                font-size: 26px;
+            }
+
+            nav {
+                gap: 20px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .page-intro {
+                padding: 55px 0 45px;
+            }
+
+            .page-intro h1 {
+                font-size: 48px;
+                letter-spacing: -2px;
+            }
+
+            .page-intro p {
+                font-size: 16px;
+            }
+
+            .featured-content {
+                padding: 35px 25px;
+            }
+
+            .featured-content h2 {
+                font-size: 30px;
+            }
+
+            .tour-item {
+                grid-template-columns: 1fr;
+            }
+
+            .tour-date {
+                border-right: none;
+                border-bottom: 1px solid #eeeeee;
+                padding-bottom: 15px;
+            }
+
+            .tour-info {
+                padding: 25px;
+                flex-direction: column;
+            }
+
+            .tour-location {
+                min-width: auto;
+                text-align: left;
+            }
+
+            .phase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .special-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-nav {
+                width: 100%;
+                justify-self: start;
+            }
+        }
+    </style>
+	
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">BINI</a>
+
+            <nav>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html" class="active">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="page-intro">
+
+            <div class="section-number">
+                03 — EVENTS & SCHEDULES
+            </div>
+
+            <h1>
+                BINI on stage,<br>
+                around the world.
+            </h1>
+
+            <p>
+                Explore BINI's 2026 events, concerts, festival
+                appearances, and the Signals World Tour timeline.
+            </p>
+
+        </section>
+
+        <section class="featured-event">
+
+            <div class="featured-image">
+
+                <img
+                    src="images/events/signals-world-tour.jpg"
+                    alt="BINI Signals World Tour"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                >
+
+                <div
+                    class="image-placeholder"
+                    style="display:none;"
+                >
+                    SIGNALS WORLD TOUR
+                </div>
+
+            </div>
+
+            <div class="featured-content">
+
+                <div class="label">
+                    FEATURED TOUR
+                </div>
+
+                <h2>
+                    Signals World Tour 2026
+                </h2>
+
+                <p>
+                    BINI takes their music beyond the Philippines with
+                    the Signals World Tour, bringing their performances
+                    to audiences across North America, Asia, Australia,
+                    and New Zealand.
+                </p>
+
+                <a
+                    href="#tour"
+                    class="featured-link"
+                >
+                    View tour dates →
+                </a>
+
+            </div>
+
+        </section>
+
+        <section class="tour-section" id="tour">
+
+            <div class="section-heading">
+
+                <h2>
+                    Signals World Tour
+                </h2>
+
+                <span>
+                    2026
+                </span>
+
+            </div>
+
+            <div class="tour-list">
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        JUNE 20–21
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Manila
+                            </h3>
+
+                            <p>
+                                Global Tour Kickoff
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                SM Mall of Asia Arena
+                            </strong>
+
+                            Pasay City, Philippines
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        JULY 11
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Cebu
+                            </h3>
+
+                            <p>
+                                Philippine Tour
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                SM Seaside Cebu Arena
+                            </strong>
+
+                            Cebu, Philippines
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        AUGUST 1
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Honolulu
+                            </h3>
+
+                            <p>
+                                North America Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Neal S. Blaisdell Center
+                            </strong>
+
+                            Honolulu, Hawaii
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        AUGUST 5
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Los Angeles
+                            </h3>
+
+                            <p>
+                                North America Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Peacock Theater
+                            </strong>
+
+                            Los Angeles, California
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        AUGUST 14
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Osaka
+                            </h3>
+
+                            <p>
+                                Summer Sonic Festival
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Expo '70 Commemorative Park
+                            </strong>
+
+                            Osaka, Japan
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        AUGUST 16
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Tokyo
+                            </h3>
+
+                            <p>
+                                Summer Sonic Festival
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                ZOZO Marine Stadium
+                            </strong>
+
+                            Tokyo, Japan
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        AUGUST 18
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Vancouver
+                            </h3>
+
+                            <p>
+                                Canada Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Queen Elizabeth Theatre
+                            </strong>
+
+                            Vancouver, Canada
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        AUGUST 21
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Calgary
+                            </h3>
+
+                            <p>
+                                Canada Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Grey Eagle Resort & Casino
+                            </strong>
+
+                            Calgary, Canada
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        AUGUST 22
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Edmonton
+                            </h3>
+
+                            <p>
+                                Canada Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Edmonton Expo Centre
+                            </strong>
+
+                            Edmonton, Canada
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        AUGUST 24
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Winnipeg
+                            </h3>
+
+                            <p>
+                                Canada Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Canada Life Centre
+                            </strong>
+
+                            Winnipeg, Canada
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        AUGUST 27
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Toronto
+                            </h3>
+
+                            <p>
+                                Canada Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                The Bowl at Sobeys Stadium
+                            </strong>
+
+                            Toronto, Canada
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        AUGUST 28
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Brooklyn
+                            </h3>
+
+                            <p>
+                                North America Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Kings Theatre
+                            </strong>
+
+                            Brooklyn, New York
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        SEPTEMBER 20
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Melbourne
+                            </h3>
+
+                            <p>
+                                Australia Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Melbourne Convention
+                            </strong>
+
+                            Melbourne, Australia
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        SEPTEMBER 25
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Auckland
+                            </h3>
+
+                            <p>
+                                New Zealand Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Eventfinda Stadium
+                            </strong>
+
+                            Auckland, New Zealand
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        SEPTEMBER 27
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Sydney
+                            </h3>
+
+                            <p>
+                                Australia Leg
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                TikTok Entertainment Centre
+                            </strong>
+
+                            Sydney, Australia
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        OCTOBER 25
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                Singapore
+                            </h3>
+
+                            <p>
+                                Asia Tour
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                Arena @ EXPO
+                            </strong>
+
+                            Singapore
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tour-item">
+
+                    <div class="tour-date">
+                        NOVEMBER 15
+                    </div>
+
+                    <div class="tour-info">
+
+                        <div class="tour-details">
+
+                            <h3>
+                                New Taipei City
+                            </h3>
+
+                            <p>
+                                Asia Tour Finale
+                            </p>
+
+                        </div>
+
+                        <div class="tour-location">
+
+                            <strong>
+                                New Taipei City Exhibition Hall
+                            </strong>
+
+                            Taiwan
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="phase-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    2026 Timeline
+                </h2>
+
+                <span>
+                    FOUR PHASES
+                </span>
+
+            </div>
+
+            <div class="phase-grid">
+
+                <article class="phase-card">
+
+                    <div class="phase-number">
+                        PHASE 01
+                    </div>
+
+                    <h3>
+                        January — May
+                    </h3>
+
+                    <p>
+                        Preparation for the year included studio
+                        sessions, choreography, the release of the
+                        Signals EP, Coachella appearances, Billboard's
+                        Women in Music event, and the Kaogma People
+                        Festival.
+                    </p>
+
+                </article>
+
+                <article class="phase-card">
+
+                    <div class="phase-number">
+                        PHASE 02
+                    </div>
+
+                    <h3>
+                        June — July
+                    </h3>
+
+                    <p>
+                        BINI officially kicked off the global tour
+                        in the Philippines with stadium shows in
+                        Manila and Cebu before making an international
+                        appearance at San Diego Comic-Con.
+                    </p>
+
+                </article>
+
+                <article class="phase-card">
+
+                    <div class="phase-number">
+                        PHASE 03
+                    </div>
+
+                    <h3>
+                        August — September
+                    </h3>
+
+                    <p>
+                        The tour expanded across North America,
+                        Japan, Australia, and New Zealand, including
+                        BINI's appearances at Summer Sonic Festival
+                        in Osaka and Tokyo.
+                    </p>
+
+                </article>
+
+                <article class="phase-card">
+
+                    <div class="phase-number">
+                        PHASE 04
+                    </div>
+
+                    <h3>
+                        October — November
+                    </h3>
+
+                    <p>
+                        The final phase brings the Signals World Tour
+                        through Asia, including Singapore and
+                        New Taipei City.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <section class="special-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Special Events
+                </h2>
+
+                <span>
+                    HIGHLIGHTS
+                </span>
+
+            </div>
+
+            <div class="special-grid">
+
+                <article class="special-card">
+
+                    <div class="special-image">
+
+                        <img
+                            src="images/events/coachella.avif"
+                            alt="BINI Coachella appearance"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            COACHELLA
+                        </div>
+
+                    </div>
+
+                    <div class="special-info">
+
+                        <div class="special-date">
+                            APRIL 10 & 17
+                        </div>
+
+                        <h3>
+                            Coachella
+                        </h3>
+
+                        <p>
+                            BINI made history with their appearance
+                            at the Coachella Valley Music and Arts
+                            Festival in California.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <article class="special-card">
+
+                    <div class="special-image">
+
+                        <img
+                            src="images/events/summer-sonic.jpeg"
+                            alt="BINI Summer Sonic Festival"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            SUMMER SONIC
+                        </div>
+
+                    </div>
+
+                    <div class="special-info">
+
+                        <div class="special-date">
+                            AUGUST 14 & 16
+                        </div>
+
+                        <h3>
+                            Summer Sonic
+                        </h3>
+
+                        <p>
+                            BINI brought their performance to Japan,
+                            appearing at Summer Sonic Festival in
+                            Osaka and Tokyo.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <article class="special-card">
+
+                    <div class="special-image">
+
+                        <img
+                            src="images/events/bini-global-force-bb-women-in-music-ftr-.jpg"
+                            alt="BINI Billboard Women in Music"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            BILLBOARD
+                        </div>
+
+                    </div>
+
+                    <div class="special-info">
+
+                        <div class="special-date">
+                            APRIL 29
+                        </div>
+
+                        <h3>
+                            Global Force Award
+                        </h3>
+
+                        <p>
+                            BINI was honored with the Global Force
+                            Award at Billboard's Women in Music event
+                            in Los Angeles.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <h2>
+                    BINI
+                </h2>
+
+                <p>
+                    A website dedicated to BINI and the BLOOMS community.
+                </p>
+
+            </div>
+
+            <div class="footer-nav">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            © JOANA MARIE GUIBAO 2026
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

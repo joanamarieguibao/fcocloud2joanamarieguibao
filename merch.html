@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Merch | BINI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #111111;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 120px;
+            right: -45px;
+            width: 190px;
+            height: 190px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 23px,
+                    #fff0f7 24px 48px,
+                    transparent 49px
+                );
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 40px;
+            left: -55px;
+            width: 180px;
+            height: 180px;
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    transparent 0 22px,
+                    #fff0f7 23px 47px,
+                    transparent 48px
+                );
+            opacity: 0.75;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            width: 100%;
+            height: 108px;
+            border-bottom: 1px solid #e5e5e5;
+            background: rgba(255, 255, 255, 0.97);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            height: 100%;
+            margin: auto;
+            padding: 0 42px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: #FF69B4;
+            text-decoration: none;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 5px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            position: relative;
+            color: #111111;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: #FF69B4;
+            transition: width 0.25s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: #FF69B4;
+            font-weight: 600;
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 42px 100px;
+        }
+
+        .page-intro {
+            padding: 76px 0 60px;
+        }
+
+        .section-number {
+            color: #FF69B4;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 34px;
+        }
+
+        .page-intro h1 {
+            max-width: 700px;
+            font-size: clamp(48px, 6vw, 78px);
+            line-height: 0.95;
+            font-weight: 700;
+            letter-spacing: -3px;
+            margin-bottom: 28px;
+        }
+
+        .page-intro p {
+            max-width: 650px;
+            color: #555555;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .featured-merch {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            border: 1px solid #dddddd;
+            background: #ffffff;
+            margin-bottom: 70px;
+        }
+
+        .featured-image {
+            min-height: 430px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-placeholder {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        .featured-content {
+            padding: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .label {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .featured-content h2 {
+            font-size: 38px;
+            line-height: 1.1;
+            margin-bottom: 22px;
+        }
+
+        .featured-content p {
+            color: #555555;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .shop-link {
+            color: #FF69B4;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .shop-link:hover {
+            text-decoration: underline;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .section-heading span {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-left: 1px solid #dddddd;
+            margin-bottom: 80px;
+        }
+
+        .merch-card {
+            border-right: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+            background: #ffffff;
+        }
+
+        .merch-image {
+            height: 300px;
+            background: #fff4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .merch-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .merch-info {
+            padding: 30px;
+        }
+
+        .merch-number {
+            color: #FF69B4;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .merch-info h3 {
+            font-size: 25px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .merch-info p {
+            color: #555555;
+            font-size: 15px;
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+
+        .merch-type {
+            display: inline-block;
+            color: #111111;
+            border-bottom: 1px solid #FF69B4;
+            padding-bottom: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .collection-section {
+            margin-top: 30px;
+        }
+
+        .collection-list {
+            border-left: 1px solid #dddddd;
+        }
+
+        .collection-item {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            min-height: 130px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .collection-label {
+            padding: 30px;
+            border-right: 1px solid #dddddd;
+            color: #FF69B4;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .collection-content {
+            padding: 30px;
+        }
+
+        .collection-content h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .collection-content p {
+            max-width: 750px;
+            color: #666666;
+            font-size: 15px;
+        }
+
+        footer {
+            border-top: 1px solid #e5e5e5;
+            background: #ffffff;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: auto;
+            padding: 76px 42px 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h2 {
+            color: #FF69B4;
+            font-size: 30px;
+            margin-bottom: 18px;
+        }
+
+        .footer-brand p {
+            max-width: 500px;
+            color: #666666;
+            font-size: 16px;
+        }
+
+        .footer-nav {
+            width: 310px;
+            justify-self: end;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 50px;
+        }
+
+        .footer-nav a {
+            color: #111111;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .footer-nav a:hover {
+            color: #FF69B4;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: auto;
+            padding: 28px 42px 34px;
+            border-top: 1px solid #dddddd;
+
+            color: #777777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1000px) {
+
+            header {
+                height: auto;
+            }
+
+            .header-inner {
+                min-height: 90px;
+                height: auto;
+                padding: 25px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            nav {
+                width: 100%;
+                overflow-x: auto;
+                gap: 24px;
+                padding-bottom: 5px;
+            }
+
+            main {
+                padding: 0 25px 70px;
+            }
+
+            .featured-merch {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 330px;
+            }
+
+            .merch-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                padding: 60px 25px 30px;
+            }
+
+            .footer-bottom {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .logo {
+                font-size: 26px;
+            }
+
+            nav {
+                gap: 20px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .page-intro {
+                padding: 55px 0 45px;
+            }
+
+            .page-intro h1 {
+                font-size: 48px;
+                letter-spacing: -2px;
+            }
+
+            .page-intro p {
+                font-size: 16px;
+            }
+
+            .featured-content {
+                padding: 35px 25px;
+            }
+
+            .featured-content h2 {
+                font-size: 30px;
+            }
+
+            .merch-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .merch-image {
+                height: 270px;
+            }
+
+            .collection-item {
+                grid-template-columns: 1fr;
+            }
+
+            .collection-label {
+                border-right: none;
+                border-bottom: 1px solid #eeeeee;
+                padding-bottom: 15px;
+            }
+
+            .collection-content {
+                padding-top: 20px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-nav {
+                width: 100%;
+                justify-self: start;
+            }
+        }
+    </style>
+	
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">BINI</a>
+
+            <nav>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html" class="active">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="page-intro">
+
+            <div class="section-number">
+                05 — MERCH
+            </div>
+
+            <h1>
+                BINI merch,<br>
+                made for BLOOMS.
+            </h1>
+
+            <p>
+                Discover selected BINI merchandise, collectibles,
+                and items created for fans who want to keep a piece
+                of the BINI experience with them.
+            </p>
+
+        </section>
+
+        <section class="featured-merch">
+
+            <div class="featured-image">
+
+                <img
+                    src="images/merch/images (2).jpeg"
+                    alt="BINI Merchandise"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                >
+
+                <div
+                    class="image-placeholder"
+                    style="display:none;"
+                >
+                    BINI MERCH
+                </div>
+
+            </div>
+
+
+            <div class="featured-content">
+
+                <div class="label">
+                    FEATURED COLLECTION
+                </div>
+
+                <h2>
+                    Official BINI Merchandise
+                </h2>
+
+                <p>
+                    From concert essentials to collectible items,
+                    BINI merchandise gives BLOOMS a way to celebrate
+                    the group beyond the stage.
+                </p>
+
+                <a
+                    href="#collections"
+                    class="shop-link"
+                >
+                    Explore collection →
+                </a>
+
+            </div>
+
+        </section>
+
+        <section id="collections">
+
+            <div class="section-heading">
+
+                <h2>
+                    Merch Collection
+                </h2>
+
+                <span>
+                    01 — 06
+                </span>
+
+            </div>
+
+            <div class="merch-grid">
+
+                <article class="merch-card">
+
+                    <div class="merch-image">
+
+                        <img
+                            src="images/merch/shirts.jpeg"
+                            alt="BINI Shirts and Caps"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            SHIRTS AND CAPS
+                        </div>
+
+                    </div>
+
+                    <div class="merch-info">
+
+                        <div class="merch-number">
+                            01
+                        </div>
+
+                        <h3>
+                            BINI Shirts and Caps
+                        </h3>
+
+                        <p>
+                            Everyday pieces featuring BINI-inspired
+                            designs that can be worn by BLOOMS anywhere.
+                        </p>
+
+                        <span class="merch-type">
+                            Apparel
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="merch-card">
+
+                    <div class="merch-image">
+
+                        <img
+                            src="images/merch/unnamed.png"
+                            alt="BINI Hoodies"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            HOODIES
+                        </div>
+
+                    </div>
+
+                    <div class="merch-info">
+
+                        <div class="merch-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Hoodies
+                        </h3>
+
+                        <p>
+                            Comfortable BINI-themed pieces perfect
+                            for casual outfits and concert days.
+                        </p>
+
+                        <span class="merch-type">
+                            Apparel
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="merch-card">
+
+                    <div class="merch-image">
+
+                        <img
+                            src="images/merch/imageskeyhcain.jpeg"
+                            alt="BINI Keychains"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            KEYCHAINS
+                        </div>
+
+                    </div>
+
+                    <div class="merch-info">
+
+                        <div class="merch-number">
+                            03
+                        </div>
+
+                        <h3>
+                            Keychains
+                        </h3>
+
+                        <p>
+                            Small collectibles that fans can attach
+                            to bags, keys, and everyday accessories.
+                        </p>
+
+                        <span class="merch-type">
+                            Collectibles
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="merch-card">
+
+                    <div class="merch-image">
+
+                        <img
+                            src="images/merch/photocardsss.jpeg"
+                            alt="BINI Photocards"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            PHOTOCARDS
+                        </div>
+
+                    </div>
+
+                    <div class="merch-info">
+
+                        <div class="merch-number">
+                            04
+                        </div>
+
+                        <h3>
+                            Photocards
+                        </h3>
+
+                        <p>
+                            Collectible photo cards featuring BINI
+                            members and special releases.
+                        </p>
+
+                        <span class="merch-type">
+                            Collectibles
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="merch-card">
+
+                    <div class="merch-image">
+
+                        <img
+                            src="images/merch/bagsimages.jpeg"
+                            alt="BINI Bags"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            BAGS
+                        </div>
+
+                    </div>
+
+                    <div class="merch-info">
+
+                        <div class="merch-number">
+                            05
+                        </div>
+
+                        <h3>
+                            Bags & Accessories
+                        </h3>
+
+                        <p>
+                            BINI-inspired accessories designed for
+                            everyday use and fan collections.
+                        </p>
+
+                        <span class="merch-type">
+                            Accessories
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <article class="merch-card">
+
+                    <div class="merch-image">
+
+                        <img
+                            src="images/merch/conimages.jpeg"
+                            alt="BINI Concert Merchandise"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                        >
+
+                        <div
+                            class="image-placeholder"
+                            style="display:none;"
+                        >
+                            CONCERT MERCH
+                        </div>
+
+                    </div>
+
+                    <div class="merch-info">
+
+                        <div class="merch-number">
+                            06
+                        </div>
+
+                        <h3>
+                            Concert Merch
+                        </h3>
+
+                        <p>
+                            Special merchandise made to remember
+                            BINI's concerts, tours, and live events.
+                        </p>
+
+                        <span class="merch-type">
+                            Limited
+                        </span>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <section class="collection-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    For Every BLOOM
+                </h2>
+
+                <span>
+                    COLLECTION
+                </span>
+
+            </div>
+
+            <div class="collection-list">
+
+                <div class="collection-item">
+
+                    <div class="collection-label">
+                        EVERYDAY
+                    </div>
+
+                    <div class="collection-content">
+
+                        <h3>
+                            Wear BINI Anywhere
+                        </h3>
+
+                        <p>
+                            Shirts, hoodies, and accessories designed
+                            for everyday fan life.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="collection-item">
+
+                    <div class="collection-label">
+                        COLLECT
+                    </div>
+
+                    <div class="collection-content">
+
+                        <h3>
+                            Keep the Memories
+                        </h3>
+
+                        <p>
+                            Photocards, keychains, and other collectibles
+                            give fans something tangible to remember
+                            different BINI eras.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="collection-item">
+
+                    <div class="collection-label">
+                        CONCERT
+                    </div>
+
+                    <div class="collection-content">
+
+                        <h3>
+                            Take the Experience Home
+                        </h3>
+
+                        <p>
+                            Special concert merchandise becomes a
+                            keepsake from unforgettable BINI moments.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="collection-item">
+
+                    <div class="collection-label">
+                        BLOOMS
+                    </div>
+
+                    <div class="collection-content">
+
+                        <h3>
+                            Made for the Community
+                        </h3>
+
+                        <p>
+                            Merch is more than an item — it is one of
+                            the ways BLOOMS can celebrate BINI together.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <h2>
+                    BINI
+                </h2>
+
+                <p>
+                    A website dedicated to BINI and the BLOOMS community.
+                </p>
+
+            </div>
+
+            <div class="footer-nav">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="members.html">
+                    Members
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="news.html">
+                    News
+                </a>
+
+                <a href="merch.html">
+                    Merch
+                </a>
+
+                <a href="endorsements.html">
+                    Endorsements
+                </a>
+
+                <a href="blooms.html">
+                    BLOOMS Corner
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            © JOANA MARIE GUIBAO 2026
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
